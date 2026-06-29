@@ -31,10 +31,7 @@ class InterfaceStandardization(Job):
     UPLINK_PATTERN = re.compile(r"^(Ethernet|GigabitEthernet|TenGigE)\d+/\d+/[0-4][0-8]?$", re.IGNORECASE)
     MGMT_PATTERN = re.compile(r"^(Management|mgmt)\d*", re.IGNORECASE)
 
-    def run(self):
-        location = self.cleaned_data.get("location")
-        dry_run = self.cleaned_data["dry_run"]
-
+    def run(self, location=None, dry_run=True):
         devices = Device.objects.all()
         if location:
             devices = devices.filter(location=location)
@@ -79,7 +76,7 @@ class InterfaceStandardization(Job):
                     if dry_run:
                         self.logger.info(
                             f"[DRY RUN] {device.name}/{iface.name}: "
-                            f"'{iface.description}' → '{new_description}'",
+                            f"'{iface.description}' -> '{new_description}'",
                             obj=iface,
                         )
                     else:

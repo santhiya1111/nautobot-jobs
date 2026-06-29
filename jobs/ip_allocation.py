@@ -33,20 +33,7 @@ class IPAllocation(Job):
         description="Preview allocations without saving",
     )
 
-    def test_prefix_has_space(self):
-        """Ensure the selected prefix has available IPs."""
-        from django.core.exceptions import ValidationError
-        prefix = self.cleaned_data.get("prefix")
-        if prefix:
-            available = prefix.get_available_ips()
-            if not available:
-                raise ValidationError(f"No available IPs in {prefix.prefix}")
-
-    def run(self):
-        prefix = self.cleaned_data["prefix"]
-        location = self.cleaned_data.get("location")
-        dry_run = self.cleaned_data["dry_run"]
-
+    def run(self, prefix=None, location=None, dry_run=True):
         devices = Device.objects.filter(primary_ip4__isnull=True)
         if location:
             devices = devices.filter(location=location)

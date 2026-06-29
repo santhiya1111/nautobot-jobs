@@ -70,14 +70,11 @@ class InventoryValidation(Job):
             "name": "Status is Active",
             "severity": "warning",
             "check": lambda d: d.status and d.status.name in ("Active", "Staged", "Planned"),
-            "message": lambda d: f"status is '{d.status.name if d.status else 'None'}' — review needed",
+            "message": lambda d: f"status is '{d.status.name if d.status else 'None'}' - review needed",
         },
     ]
 
-    def run(self):
-        location = self.cleaned_data.get("location")
-        severity = self.cleaned_data["severity"]
-
+    def run(self, location=None, severity="all", dry_run=True):
         devices = Device.objects.select_related(
             "role", "platform", "device_type", "status", "location",
             "primary_ip4", "primary_ip6",

@@ -26,21 +26,7 @@ class DeviceAudit(Job):
         description="Report issues only — do not make any changes",
     )
 
-    def test_devices_exist(self):
-        """Ensure there are devices to audit."""
-        location = self.cleaned_data.get("location")
-        qs = Device.objects.all()
-        if location:
-            qs = qs.filter(location=location)
-        if not qs.exists():
-            from django.core.exceptions import ValidationError
-            msg = f"No devices found in {location.name}" if location else "No devices in the system"
-            raise ValidationError(msg)
-
-    def run(self):
-        location = self.cleaned_data.get("location")
-        dry_run = self.cleaned_data["dry_run"]
-
+    def run(self, location=None, dry_run=True):
         devices = Device.objects.all()
         if location:
             devices = devices.filter(location=location)

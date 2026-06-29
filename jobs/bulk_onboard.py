@@ -28,10 +28,7 @@ class BulkOnboard(Job):
         description="Preview mode — show what would be created without saving",
     )
 
-    def run(self):
-        dry_run = self.cleaned_data["dry_run"]
-        csv_file = self.cleaned_data["csv_file"]
-
+    def run(self, csv_file=None, dry_run=True):
         reader = csv.DictReader(io.TextIOWrapper(csv_file, encoding="utf-8"))
         created_count = 0
         skipped_count = 0
