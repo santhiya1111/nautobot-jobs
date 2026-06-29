@@ -7,7 +7,7 @@ Nautobot 40-Hour Training Program (Techademy)
 import csv
 import io
 
-from nautobot.apps.jobs import Job, FileVar, BooleanVar, register_jobs
+from nautobot.apps.jobs import Job, FileVar, BooleanVar
 from nautobot.dcim.models import Device, Location
 from nautobot.extras.models import Role, Status
 
@@ -93,6 +93,3 @@ class BulkOnboard(Job):
             f"[{mode}] Complete: {created_count} created, "
             f"{skipped_count} skipped, {error_count} errors"
         )
-
-
-register_jobs(BulkOnboard)

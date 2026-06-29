@@ -6,7 +6,7 @@ Nautobot 40-Hour Training Program (Techademy)
 
 import re
 
-from nautobot.apps.jobs import Job, ObjectVar, BooleanVar, register_jobs
+from nautobot.apps.jobs import Job, ObjectVar, BooleanVar
 from nautobot.dcim.models import Device, Interface, Location
 
 
@@ -101,6 +101,3 @@ class InterfaceStandardization(Job):
             f"[{mode}] Complete: {total_interfaces} interfaces scanned, "
             f"{updated} need updates, {already_compliant} already compliant"
         )
-
-
-register_jobs(InterfaceStandardization)

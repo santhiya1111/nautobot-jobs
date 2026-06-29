@@ -4,7 +4,7 @@ Module 7, Exercise 1 (Slide 18): Inventory Validation Use Case
 Nautobot 40-Hour Training Program (Techademy)
 """
 
-from nautobot.apps.jobs import Job, ObjectVar, BooleanVar, ChoiceVar, register_jobs
+from nautobot.apps.jobs import Job, ObjectVar, BooleanVar, ChoiceVar
 from nautobot.dcim.models import Device, Location
 
 
@@ -150,6 +150,3 @@ class InventoryValidation(Job):
             for name, count in worst:
                 if count > 0:
                     self.logger.info(f"  {name}: {count} issue(s)")
-
-
-register_jobs(InventoryValidation)

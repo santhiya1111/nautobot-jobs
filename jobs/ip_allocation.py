@@ -4,7 +4,7 @@ Module 7, Exercise 1 (Slide 17): IP Allocation Use Case
 Nautobot 40-Hour Training Program (Techademy)
 """
 
-from nautobot.apps.jobs import Job, ObjectVar, BooleanVar, register_jobs
+from nautobot.apps.jobs import Job, ObjectVar, BooleanVar
 from nautobot.dcim.models import Device, Location, Interface
 from nautobot.ipam.models import Prefix, IPAddress
 from nautobot.extras.models import Status
@@ -124,6 +124,3 @@ class IPAllocation(Job):
             f"[{mode}] Complete: {allocated} allocated, "
             f"{skipped} skipped, {errors} errors"
         )
-
-
-register_jobs(IPAllocation)

@@ -4,7 +4,7 @@ Module 7, Exercise 1: Custom Job Development
 Nautobot 40-Hour Training Program (Techademy)
 """
 
-from nautobot.apps.jobs import Job, ObjectVar, BooleanVar, register_jobs
+from nautobot.apps.jobs import Job, ObjectVar, BooleanVar
 from nautobot.dcim.models import Device, Location
 
 
@@ -95,6 +95,3 @@ class DeviceAudit(Job):
             self.logger.info(
                 f"LIVE RUN — {issues['no_serial']} serial numbers updated to PENDING-AUDIT"
             )
-
-
-register_jobs(DeviceAudit)
