@@ -65,7 +65,7 @@ class IPAllocation(Job):
                     mgmt_iface = Interface.objects.filter(device=device).first()
 
                 if not mgmt_iface:
-                    self.logger.warning(f"{device.name}: no interfaces — skipping", obj=device)
+                    self.logger.warning(f"{device.name}: no interfaces — skipping")
                     skipped += 1
                     continue
 
@@ -82,7 +82,6 @@ class IPAllocation(Job):
                     self.logger.success(
                         f"[DRY RUN] {device.name}: would assign {ip_with_mask} "
                         f"to {mgmt_iface.name}",
-                        obj=device,
                     )
                 else:
                     ip_address = IPAddress(
@@ -97,13 +96,12 @@ class IPAllocation(Job):
 
                     self.logger.success(
                         f"{device.name}: assigned {ip_with_mask} to {mgmt_iface.name}",
-                        obj=device,
                     )
 
                 allocated += 1
 
             except Exception as e:
-                self.logger.failure(f"{device.name}: {e}", obj=device)
+                self.logger.failure(f"{device.name}: {e}")
                 errors += 1
 
         mode = "DRY RUN" if dry_run else "LIVE"

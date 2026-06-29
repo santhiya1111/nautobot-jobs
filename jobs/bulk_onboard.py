@@ -68,18 +68,18 @@ class BulkOnboard(Job):
                         status=status,
                     )
                     device.validated_save()
-                    self.logger.success(f"Created: {device.name}", obj=device)
+                    self.logger.success(f"Created: {device.name}")
 
                 created_count += 1
 
             except Role.DoesNotExist:
-                self.logger.failure(f"Row {row_num}: role '{role_name}' not found", obj=None)
+                self.logger.failure(f"Row {row_num}: role '{role_name}' not found")
                 error_count += 1
             except Location.DoesNotExist:
-                self.logger.failure(f"Row {row_num}: location '{location_name}' not found", obj=None)
+                self.logger.failure(f"Row {row_num}: location '{location_name}' not found")
                 error_count += 1
             except Status.DoesNotExist:
-                self.logger.failure(f"Row {row_num}: status '{status_name}' not found", obj=None)
+                self.logger.failure(f"Row {row_num}: status '{status_name}' not found")
                 error_count += 1
             except Exception as e:
                 self.logger.failure(f"Row {row_num}: {e}")

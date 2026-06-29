@@ -30,7 +30,7 @@ class DeviceAudit(Job):
         devices = Device.objects.all()
         if location:
             devices = devices.filter(location=location)
-            self.logger.info(f"Auditing devices at: {location.name}", obj=location)
+            self.logger.info(f"Auditing devices at: {location.name}")
         else:
             self.logger.info(f"Auditing ALL {devices.count()} devices")
 
@@ -52,7 +52,7 @@ class DeviceAudit(Job):
                 if not dry_run:
                     device.serial = "PENDING-AUDIT"
                     device.validated_save()
-                    self.logger.info("Set serial to PENDING-AUDIT", obj=device)
+                    self.logger.info("Set serial to PENDING-AUDIT")
 
             if not device.role:
                 issues["no_role"] += 1
@@ -61,11 +61,10 @@ class DeviceAudit(Job):
             if device_issues:
                 self.logger.warning(
                     f"{device.name}: {', '.join(device_issues)}",
-                    obj=device,
                 )
             else:
                 clean += 1
-                self.logger.success(f"{device.name}: all checks passed", obj=device)
+                self.logger.success(f"{device.name}: all checks passed")
 
         self.logger.info(
             f"Audit complete: {total} devices scanned, "

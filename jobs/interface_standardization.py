@@ -77,7 +77,6 @@ class InterfaceStandardization(Job):
                         self.logger.info(
                             f"[DRY RUN] {device.name}/{iface.name}: "
                             f"'{iface.description}' -> '{new_description}'",
-                            obj=iface,
                         )
                     else:
                         iface.description = new_description
@@ -85,10 +84,9 @@ class InterfaceStandardization(Job):
                             iface.validated_save()
                             self.logger.success(
                                 f"{device.name}/{iface.name}: set to '{new_description}'",
-                                obj=iface,
                             )
                         except Exception as e:
-                            self.logger.failure(f"{device.name}/{iface.name}: {e}", obj=iface)
+                            self.logger.failure(f"{device.name}/{iface.name}: {e}")
                     updated += 1
                 else:
                     already_compliant += 1

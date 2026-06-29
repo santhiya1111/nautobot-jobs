@@ -118,12 +118,11 @@ class InventoryValidation(Job):
                     log_method = self.logger.failure if issue["severity"] == "critical" else self.logger.warning
                     log_method(
                         f"{device.name}: [{issue['severity'].upper()}] {issue['message']}",
-                        obj=device,
                     )
                 device_scores[device.name] = len(device_issues)
             else:
                 results["pass"] += 1
-                self.logger.success(f"{device.name}: all validation checks passed", obj=device)
+                self.logger.success(f"{device.name}: all validation checks passed")
                 device_scores[device.name] = 0
 
         total = devices.count()
