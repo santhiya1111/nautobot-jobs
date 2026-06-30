@@ -1,0 +1,47 @@
+# =============================================
+# Intended Configuration for {{ device.name }}
+# Location: {{ device.location.name }}
+# Role: {{ device.role.name }}
+# Platform: {{ device.platform.name }}
+# =============================================
+
+# --- Hostname ---
+hostname={{ device.name }}
+
+# --- DNS Configuration ---
+# /etc/resolv.conf
+nameserver 10.100.0.10
+nameserver 10.100.0.11
+search techademy.lab
+
+# --- NTP Configuration ---
+# /etc/chrony.conf or /etc/ntp.conf
+server 10.100.0.1 iburst prefer
+server 10.100.0.2 iburst
+
+# --- SNMP Configuration ---
+# /etc/snmp/snmpd.conf
+rocommunity TechademyRO
+syslocation {{ device.location.name }}
+syscontact noc@techademy.lab
+
+# --- Logging Configuration ---
+# /etc/rsyslog.d/remote.conf
+*.* @10.100.0.20:514
+
+# --- SSH Configuration ---
+# /etc/ssh/sshd_config
+Protocol 2
+PermitRootLogin no
+MaxAuthTries 3
+ClientAliveInterval 300
+ClientAliveCountMax 2
+LoginGraceTime 60
+
+# --- Banner ---
+# /etc/issue.net
+#####################################################
+# AUTHORIZED ACCESS ONLY                           #
+# Device: {{ device.name }}                         #
+# Location: {{ device.location.name }}              #
+#####################################################
